@@ -1,0 +1,48 @@
+def platforms = ['windows-x86_64']
+
+def platformTasks = platforms.collect { platform ->
+    (Jar) tasks.create(name: "$platform-jar", type: Jar, group: 'llvm platform jars') {
+        from "$platform/module-info.class"
+
+        into("asia/kala/llvm/platform/$platform") {
+            from "${rootProject.rootDir}/native/$platform"
+            include '*.dll'
+            include '*.so'
+            include '*.dylib'
+        }
+        classifier platform
+    }
+}
+
+platformTasks.each { jar.dependsOn(it) }
+
+task showLibrariesPath {
+    doLast {
+        println(
+                (rootProject.allprojects.collect { it.jar.outputs.files.getFiles() } +
+                        platformTasks.collect { it.outputs.files.getFiles() }).flatten().join(File.pathSeparator))
+    }
+}
+
+publishing {
+    publications {
+        Kala(MavenPublication) {
+            platformTasks.each {
+                artifact it
+            }
+            /*
+            pom.withXml {
+                Node des = asNode().appendNode('dependencies')
+                platformTasks.each {
+                    Node n = new Node(des, 'dependency')
+                    n.appendNode('groupId', group)
+                    n.appendNode('artifactId', project.name)
+                    n.appendNode('version', project.version)
+                    n.appendNode('classifier', it.archiveClassifier.get())
+                    n.appendNode('scope', 'compile')
+                }
+            }
+            */
+        }
+    }
+}

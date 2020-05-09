@@ -1,0 +1,20 @@
+compileJava {
+    options.compilerArgs += '-parameters'
+}
+
+task generateProperties(group: 'build') {
+    doLast {
+        file('build/llvm.properties').withPrintWriter { writer ->
+            writer.println('llvm.version=' + llvm_version)
+            writer.println('llvm.java.version=' + version)
+        }
+    }
+}
+
+jar {
+    dependsOn generateProperties
+
+    into('asia/kala/llvm/binding') {
+        from 'build/llvm.properties'
+    }
+}

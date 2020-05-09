@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':llvm-binding')
+}
+
+application {
+    mainClassName = 'asia.kala.llvm.generator.Main'
+    executableDir = 'build'
+}
+
+task generateNative(dependsOn: run, group: 'generate native') {
+    doLast {
+        copy {
+            from 'src/main/resources'
+            into '../native'
+        }
+    }
+}

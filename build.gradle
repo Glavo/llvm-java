@@ -1,0 +1,126 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javamodularity:moduleplugin:1.6.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'de.undercouch:gradle-download-task:4.0.4'
+    }
+}
+
+allprojects {
+    group 'asia.kala'
+    version "$llvm_version-RC1-SNAPSHOT"
+
+    apply plugin: 'java-library'
+    apply plugin: 'org.javamodularity.moduleplugin'
+
+    sourceCompatibility = 9
+    targetCompatibility = 9
+}
+
+configure(allprojects.findAll { it.name != 'native-generator'}) {
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+
+    task processClassFile(dependsOn: compileJava) {
+        doLast {
+            FileTree tree = fileTree(sourceSets.main.java.outputDir)
+            tree.include '**/*.class'
+            tree.exclude 'module-info.class'
+            tree.each {
+                RandomAccessFile rf = new RandomAccessFile(it, "rw")
+                rf.seek(7)   // major version
+                rf.write(52) // java 8
+                rf.close()
+            }
+        }
+    }
+
+    jar.dependsOn(processClassFile)
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allSource
+        exclude 'module-info.class'
+        archiveClassifier = 'sources'
+    }
+
+    publishing {
+        publications {
+            Kala(MavenPublication) {
+                from components.java
+
+                artifact sourcesJar
+
+                pom {
+                    name = project.name
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'glavo'
+                            name = 'Glavo'
+                            email = 'zjx001202@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bintray {
+        user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+        key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+        publications = ['Kala']
+        pkg {
+            repo = 'maven'
+            name = project.name
+            licenses = ['Apache-2.0']
+            publicDownloadNumbers = true
+            vcsUrl = 'https://github.com/kala-projects/llvm-java.git'
+            version {
+                name = project.version
+                desc = "${project.name} ${project.version}"
+                vcsTag = project.version
+            }
+        }
+    }
+
+    tasks.withType(GenerateModuleMetadata) {
+        enabled = false
+    }
+
+    task travisPublish() {}
+
+    if (!project.version.toString().endsWith("SHAPSHOT")) {
+        travisPublish.dependsOn(bintrayUpload)
+    }
+}
+
+dependencies {
+    api project(':llvm-binding')
+}
+
+apply plugin: 'de.undercouch.download'
+
+task downloadNativeLibraries(type: Download) {
+    src native_libraries_url
+    dest "$buildDir/llvm-java-native.zip"
+}
+
+task getNativeLibraries(dependsOn: downloadNativeLibraries) {
+    doLast {
+        copy {
+            from zipTree(downloadNativeLibraries.dest)
+            into rootDir
+        }
+    }
+
+}
