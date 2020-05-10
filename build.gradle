@@ -105,12 +105,15 @@ dependencies {
 apply plugin: 'de.undercouch.download'
 
 task downloadNativeLibraries(type: Download) {
-    src native_libraries_url
+    src "https://github.com/kala-projects/llvm-java/releases/download/$version/llvm-java-native.zip"
     dest "$buildDir/llvm-java-native.zip"
 }
 
 task getNativeLibraries(dependsOn: downloadNativeLibraries) {
     doLast {
+        if(project.version.toString().endsWith("")) {
+            throw new GradleException()
+        }
         copy {
             from zipTree(downloadNativeLibraries.dest)
             into rootDir
