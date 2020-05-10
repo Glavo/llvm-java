@@ -1,4 +1,5 @@
-# LLVM Java Binding
+# LLVM Java Binding 
+[ ![Download](https://api.bintray.com/packages/glavo/maven/llvm/images/download.svg) ](https://bintray.com/glavo/maven/llvm/_latestVersion)
 
 Note: The basic features of the project are available, but the project is not yet stable. Please report positively if you encounter bugs.
 
