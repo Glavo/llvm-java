@@ -13,7 +13,7 @@ buildscript {
 
 allprojects {
     group 'asia.kala'
-    version "$llvm_version-RC1-SNAPSHOT"
+    version "$llvm_version-RC1"
 
     apply plugin: 'java-library'
     apply plugin: 'org.javamodularity.moduleplugin'
@@ -111,7 +111,7 @@ task downloadNativeLibraries(type: Download) {
 
 task getNativeLibraries(dependsOn: downloadNativeLibraries) {
     doLast {
-        if(project.version.toString().endsWith("")) {
+        if(project.version.toString().endsWith("-SNAPSHOT")) {
             throw new GradleException()
         }
         copy {
