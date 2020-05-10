@@ -96,12 +96,6 @@ configure(allprojects.findAll { it.name != 'native-generator'}) {
     tasks.withType(GenerateModuleMetadata) {
         enabled = false
     }
-
-    task travisPublish() {}
-
-    if (!project.version.toString().endsWith("SHAPSHOT")) {
-        travisPublish.dependsOn(bintrayUpload)
-    }
 }
 
 dependencies {
