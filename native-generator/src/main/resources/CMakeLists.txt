@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(llvm-java-native)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(LLVM REQUIRED CONFIG)
 find_package(JNI REQUIRED)
