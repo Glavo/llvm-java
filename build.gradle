@@ -22,7 +22,7 @@ allprojects {
     targetCompatibility = 9
 }
 
-configure(allprojects.findAll { it.name != 'native-generator'}) {
+configure(allprojects.findAll { it.name != 'native-generator' }) {
     apply plugin: 'maven-publish'
     apply plugin: 'com.jfrog.bintray'
 
@@ -115,6 +115,18 @@ task getNativeLibraries(dependsOn: downloadNativeLibraries) {
             from zipTree(downloadNativeLibraries.dest)
             into rootDir
         }
+    }
+
+}
+
+task packageNativeLibraries(type: Zip) {
+    archiveFileName = 'llvm-java-native.zip'
+    into('native') {
+        from 'native'
+        includeEmptyDirs = false
+        include '**/llvm-java.dll'
+        include '**/libllvm-java.so'
+        include '**/libllvm-java.dylib'
     }
 
 }

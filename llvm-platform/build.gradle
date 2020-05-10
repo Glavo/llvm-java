@@ -1,4 +1,4 @@
-def platforms = ['windows-x86_64']
+def platforms = ['windows-x86_64', 'windows-x86', 'linux-x86_64']
 
 def platformTasks = platforms.collect { platform ->
     (Jar) tasks.create(name: "$platform-jar", type: Jar, group: 'llvm platform jars') {
