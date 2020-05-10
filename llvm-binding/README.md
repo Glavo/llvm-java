@@ -43,6 +43,7 @@
     `@Xxx long[] GetXxx(...)`
     
 3. 通过传递指向首元素指针以及对应的数组长度来传递数组的方法：
+
    `<some type> foo(..., @Pointer("Xxx *") long values, @Unsigned int count, ...)
    <=>`
    `<some type> foo(..., @Xxx long[] values, ...)`
