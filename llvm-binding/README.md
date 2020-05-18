@@ -2,7 +2,7 @@
 
 `llvm-binding` 模块提供了一套对 LLVM-C API 的低级绑定. 
 
-该模块提供了对 LLVM-C API 简单而高效的映射，该模块提供了对 LLVM-C API 简单而高效的映射。
+该模块提供了对 LLVM-C API 简单而高效的映射。
 
 易用和安全不是该模块的目的，该模块提供的方法只是简单的把参数转发给 LLVM-C API，
 尽可能降低了 JNI 造成的额外开销。C API 与 Java API 的类型映射参见下表：

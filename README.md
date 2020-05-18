@@ -27,27 +27,7 @@ repositories {
 }
 ```
 
-Chinese users can use the mirror repository provided by Alibaba Cloud: 
-
-Maven:
-```xml
-<repositories>
-  <repository>
-    <id>jcenter</id>
-    <url>https://maven.aliyun.com/repository/jcenter</url>
-  </repository>
-</repositories>
-```
-
-Gradle:
-
-```groovy
-repositories {
-    maven {
-        url 'https://maven.aliyun.com/repository/jcenter'
-    }
-}
-```
+中国大陆用户可以考虑使用[阿里云 maven 镜像库](https://help.aliyun.com/document_detail/102512.html)。
 
 Then add dependencies(replace `llvm_java_version` with the llvm java version you want to use):
 
