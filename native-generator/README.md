@@ -7,4 +7,4 @@
 可以使用 CMake 构建生成对应的本机库文件。
  
 注意：LLVM Java Binding 需要静态链接 LLVM，Windows 上还需要静态链接 vcruntime。
-需要在 Windows 上构建能够静态链接 vcruntime 的 LLVM，请参见 [build-note.md](build-note.md)。 
+需要在 Windows 上构建能够静态链接 vcruntime 的 LLVM，请参见 [build-note.md](../build-note.md)。 

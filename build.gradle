@@ -5,8 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.javamodularity:moduleplugin:1.6.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'org.javamodularity:moduleplugin:1.7.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath 'de.undercouch:gradle-download-task:4.0.4'
     }
 }
@@ -84,7 +84,7 @@ configure(allprojects.findAll { it.name != 'native-generator' }) {
             name = project.name
             licenses = ['Apache-2.0']
             publicDownloadNumbers = true
-            vcsUrl = 'https://github.com/kala-projects/llvm-java.git'
+            vcsUrl = 'https://github.com/Glavo/llvm-java.git'
             version {
                 name = project.version
                 desc = "${project.name} ${project.version}"
@@ -105,7 +105,7 @@ dependencies {
 apply plugin: 'de.undercouch.download'
 
 task downloadNativeLibraries(type: Download) {
-    src "https://github.com/kala-projects/llvm-java/releases/download/$version/llvm-java-native.zip"
+    src "https://github.com/Glavo/llvm-java/releases/download/$version/llvm-java-native.zip"
     dest "$buildDir/llvm-java-native.zip"
 }
 
