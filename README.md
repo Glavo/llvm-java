@@ -27,7 +27,7 @@ repositories {
 }
 ```
 
-中国大陆用户可以考虑使用[阿里云 maven 镜像库](https://help.aliyun.com/document_detail/102512.html)。
+Users in Mainland China can consider using Alibaba Cloud maven mirror library(https://help.aliyun.com/document_detail/102512.html).
 
 Then add dependencies(replace `llvm_java_version` with the llvm java version you want to use):
 
@@ -50,8 +50,8 @@ please see [llvm-platform](#llvm-platform).**
 
 ## Modules
 
-LLVM Java 被分割为多个子模块，除了用于分发本机库的 [`llvm-platform`](#llvm-platform) 模块，
-其他模块都可以通过这样的方式单独添加(将 `moduleName` 替换为你需要的模块名称)：
+LLVM Java is divided into multiple sub-modules, except for the [`llvm-platform`](#llvm-platform) module, which is used to distribute native libraries.
+Other modules can be added separately in this way (replace `moduleName` with the module name you need):
 
 Maven:
 ```xml
@@ -69,21 +69,22 @@ implementation group: 'asia.kala', name: moduleName, version: llvm_java_version
 
 ### llvm-platform
 
-`llvm-platform` 模块用于分发各平台上预构建的二进制库文件。
+The `llvm-platform` module is used to distribute pre-built binary library files on various platforms.
 
+Currently supported platforms are:
 目前支持的平台有：
 
 * `windows-x86_64`
 * `windows-x86`
 * `linux-x86_64`
 
-每个平台的库都会被包装至 jar 中，
-其 Jigsaw 模块名为 `asia.kala.llvm.platform.<osName>.<archName>`
-（譬如 `windows-x86_64` 平台对应 jar 模块名为 `asia.kala.llvm.platform.windows.x86_64`）。
-在 Java 9 以上，以模块化方式运行或者用 jlink 生成映像时，请用 `--add-modules` 
-添加对应平台的模块。
+The libraries of each platform will be packaged in a jar,
+Its Jigsaw module name is ʻasia.kala.llvm.platform.<osName>.<archName>`
+(For example, the jar module corresponding to the `windows-x86_64` platform is named ʻasia.kala.llvm.platform.windows.x86_64`).
+In Java 9 and above, when running in modular mode or generating images with jlink, please use `--add-modules`
+Add modules corresponding to the platform.
 
-将平台 jar 添加至依赖中：
+Add the platform jar to the dependencies:
 
 Maven:
 ```xml
@@ -102,16 +103,16 @@ implementation 'asia.kala:llvm-platform:${llvm_java_version}:${platformName}'
 
 ### llvm-binding
 
-`llvm-binding` 模块提供了一套对 LLVM-C API 的低级绑定，该模块提供了对 LLVM-C API 简单而高效的映射。
+The `llvm-binding` module provides a set of low-level bindings to the LLVM-C API. This module provides a simple and efficient mapping to the LLVM-C API.
 
-更多文档请参见 [llvm-binding/README.md](llvm-binding/README.md)
+For more documentation, please see [llvm-binding/README.md](llvm-binding/README.md)
 
 ## Roadmap
 
-版本号规则：
+Version number rules:
 
-预发布版： `{LLVM 版本}-RC{发布版本}` (例如：`10.0.0-RC1`)
+Pre-release version: `{LLVM version}-RC{release version}` (for example: `10.0.0-RC1`)
 
-发行版： `{LLVM 版本}-R{发布版本}` (例如：`10.0.0-R1`)
+Release version: `{LLVM version}-R{release version}` (for example: `10.0.0-R1`)
 
-目前最基础的 LLVM-C API 映射已经基本完成，该项目现在的目标是基于此 API 构建一套更高级且易用的 API。
+At present, the most basic LLVM-C API mapping has been basically completed. The current goal of the project is to build a more advanced and easy-to-use API based on this API.
