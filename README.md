@@ -72,7 +72,6 @@ implementation group: 'asia.kala', name: moduleName, version: llvm_java_version
 The `llvm-platform` module is used to distribute pre-built binary library files on various platforms.
 
 Currently supported platforms are:
-目前支持的平台有：
 
 * `windows-x86_64`
 * `windows-x86`
