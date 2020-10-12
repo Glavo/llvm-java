@@ -72,7 +72,7 @@
 | llvm-c/Initialization.h                   | asia.kala.llvm.binding.Initialization                   |
 | llvm-c/IRReader.h                         | asia.kala.llvm.binding.IRReader                         |
 | llvm-c/Linker.h                           | asia.kala.llvm.binding.Linker                           |
-| llvm-c/LinkTimeOptimizer.h                | 未实现                                                  |
+| llvm-c/LinkTimeOptimizer.h                | **未实现**                                              |
 | llvm-c/lto.h                              | asia.kala.llvm.binding.lto (未完全实现)                 |
 | llvm-c/Object.h                           | asia.kala.llvm.binding.ObjectH                          |
 | llvm-c/OrcBindings.h                      | asia.kala.llvm.binding.OrcBindings                      |
@@ -114,7 +114,7 @@
 
 `@CEnum` 注解是用于注解其他注解的元注解。
 
-被 `@CEnum` 注解的注解类型一个 C enum 类型，在其中应该声明一系列常量表示对应的 C enum 的值，
+被 `@CEnum` 注解的注解类型对应一个 C enum 类型，在其中应该声明一系列常量表示对应的 C enum 的值，
 `@CEnum` 注解唯一的元素 `value` 表示对应的 enum 类型名称。
 
 被 `@CEnum` 注解的注解用于注解 `int` 类型，表示它在 C 中对应相应的枚举类型。

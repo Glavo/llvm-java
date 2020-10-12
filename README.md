@@ -3,7 +3,7 @@
 
 Note: The basic features of the project are available, but the project is not yet stable. Please report positively if you encounter bugs.
 
-English | [中文](README_zh_CN.md)
+English | [中文](./README_zh_CN.md)
 
 ## Adding LLVM Java to your build
 
@@ -26,8 +26,6 @@ repositories {
     jcenter()
 }
 ```
-
-Users in Mainland China can consider using Alibaba Cloud maven mirror library(https://help.aliyun.com/document_detail/102512.html).
 
 Then add dependencies(replace `llvm_java_version` with the llvm java version you want to use):
 
@@ -78,10 +76,10 @@ Currently supported platforms are:
 * `linux-x86_64`
 
 The libraries of each platform will be packaged in a jar,
-Its Jigsaw module name is ʻasia.kala.llvm.platform.<osName>.<archName>`
-(For example, the jar module corresponding to the `windows-x86_64` platform is named ʻasia.kala.llvm.platform.windows.x86_64`).
+Its Jigsaw module name is `asia.kala.llvm.platform.<osName>.<archName>`
+(For example, the jar module corresponding to the `windows-x86_64` platform is named `asia.kala.llvm.platform.windows.x86_64`).
 In Java 9 and above, when running in modular mode or generating images with jlink, please use `--add-modules`
-Add modules corresponding to the platform.
+add modules corresponding to the platform.
 
 Add the platform jar to the dependencies:
 
@@ -104,7 +102,7 @@ implementation 'asia.kala:llvm-platform:${llvm_java_version}:${platformName}'
 
 The `llvm-binding` module provides a set of low-level bindings to the LLVM-C API. This module provides a simple and efficient mapping to the LLVM-C API.
 
-For more documentation, please see [llvm-binding/README.md](llvm-binding/README.md)
+For more documentation, please see [llvm-binding/README](llvm-binding/README.md)
 
 ## Roadmap
 

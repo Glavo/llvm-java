@@ -52,7 +52,7 @@ implementation group: 'asia.kala', name: 'llvm', version: llvm_java_version
 ## 模块
 
 LLVM Java 被分割为多个子模块，除了用于分发本机库的 [`llvm-platform`](#llvm-platform) 模块，
-其他模块都可以通过这样的方式单独添加(将 `moduleName` 替换为你需要的模块名称)：
+其他模块都可以通过这样的方式单独添加（将 `moduleName` 替换为你需要的模块名称）：
 
 Maven:
 ```xml
@@ -105,7 +105,7 @@ implementation 'asia.kala:llvm-platform:${llvm_java_version}:${platformName}'
 
 `llvm-binding` 模块提供了一套对 LLVM-C API 的低级绑定，该模块提供了对 LLVM-C API 简单而高效的映射。
 
-更多文档请参见 [llvm-binding/README.md](llvm-binding/README.md)
+更多文档请参见 [llvm-binding/README](llvm-binding/README_zh_CN.md)
 
 ## Roadmap
 

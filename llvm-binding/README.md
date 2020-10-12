@@ -1,5 +1,7 @@
 ## llvm-binding module
 
+English | [中文](README_zh_CN.md)
+
 The `llvm-binding` module provides a set of low-level bindings to the LLVM-C API.
 
 This module provides a simple and efficient mapping to the LLVM-C API.
@@ -72,7 +74,7 @@ The module uses a one-to-one correspondence with classes. The LLVM-C API contain
 | llvm-c/Initialization.h                   | asia.kala.llvm.binding.Initialization                   |
 | llvm-c/IRReader.h                         | asia.kala.llvm.binding.IRReader                         |
 | llvm-c/Linker.h                           | asia.kala.llvm.binding.Linker                           |
-| llvm-c/LinkTimeOptimizer.h                | 未实现                                                   |
+| llvm-c/LinkTimeOptimizer.h                | **Not implemented**                                     |
 | llvm-c/lto.h                              | asia.kala.llvm.binding.lto (Not fully realized)         |
 | llvm-c/Object.h                           | asia.kala.llvm.binding.ObjectH                          |
 | llvm-c/OrcBindings.h                      | asia.kala.llvm.binding.OrcBindings                      |
