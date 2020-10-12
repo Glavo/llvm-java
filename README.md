@@ -3,7 +3,7 @@
 
 Note: The basic features of the project are available, but the project is not yet stable. Please report positively if you encounter bugs.
 
-Note: English documents will be provided in the future, and currently only Chinese documents are available.
+English | [中文](README_zh_CN.md)
 
 ## Adding LLVM Java to your build
 

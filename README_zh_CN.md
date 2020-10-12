@@ -1,20 +1,22 @@
 # LLVM Java Binding 
 [ ![Download](https://api.bintray.com/packages/glavo/maven/llvm/images/download.svg) ](https://bintray.com/glavo/maven/llvm/_latestVersion)
 
-Note: The basic features of the project are available, but the project is not yet stable. Please report positively if you encounter bugs.
+注意：这个项目基本功能已经可用，但依然处于实验状态，当遇到问题时，请您通过 issue 告诉我们。
 
-Note: English documents will be provided in the future, and currently only Chinese documents are available.
+## 将 LLVM Java 添加至您的项目中
 
-## Adding LLVM Java to your build
+首先，您需要将 jcenter 仓库添加至配置中：
 
-First, you need to add the jcenter repository to your build:
+Maven: 
 
-Maven:
 ```xml
 <repositories>
   <repository>
     <id>jcenter</id>
     <url>https://jcenter.bintray.com</url>
+    <!-- 或者使用阿里云提供的镜像仓库：
+    <url>https://maven.aliyun.com/repository/jcenter</url> 
+    -->
   </repository>
 </repositories>
 ```
@@ -24,12 +26,12 @@ Gradle:
 ```groovy
 repositories {
     jcenter()
+    // 或者使用阿里云的镜像仓库：
+    // maven { url 'https://maven.aliyun.com/repository/jcenter' }
 }
 ```
 
-中国大陆用户可以考虑使用[阿里云 maven 镜像库](https://help.aliyun.com/document_detail/102512.html)。
-
-Then add dependencies(replace `llvm_java_version` with the llvm java version you want to use):
+然后添加依赖（使用时将 `llvm_java_version` 替换为本项目的版本号）：
 
 Maven:
 ```xml
@@ -45,10 +47,9 @@ Gradle:
 implementation group: 'asia.kala', name: 'llvm', version: llvm_java_version
 ```
 
-**In addition, you also need to add the native library to the dependency,
-please see [llvm-platform](#llvm-platform).**
+**另外，想要正常使用本项目，还需要添加 native 依赖项，请参见 [llvm-platform](#llvm-platform).**
 
-## Modules
+## 模块
 
 LLVM Java 被分割为多个子模块，除了用于分发本机库的 [`llvm-platform`](#llvm-platform) 模块，
 其他模块都可以通过这样的方式单独添加(将 `moduleName` 替换为你需要的模块名称)：
