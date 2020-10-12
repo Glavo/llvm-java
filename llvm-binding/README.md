@@ -1,15 +1,15 @@
 ## llvm-binding module
 
-`llvm-binding` 模块提供了一套对 LLVM-C API 的低级绑定. 
+The `llvm-binding` module provides a set of low-level bindings to the LLVM-C API.
 
-该模块提供了对 LLVM-C API 简单而高效的映射。
+This module provides a simple and efficient mapping to the LLVM-C API.
 
-易用和安全不是该模块的目的，该模块提供的方法只是简单的把参数转发给 LLVM-C API，
-尽可能降低了 JNI 造成的额外开销。C API 与 Java API 的类型映射参见下表：
+Ease of use and security are not the purpose of this module. The method provided by this module is simply to forward the parameters to the LLVM-C API.
+Minimize the extra overhead caused by JNI. The type mapping between C API and Java API is shown in the following table:
 
-| C 类型                                       | Java 类型 |
+| C type                                       | Java type |
 | -------------------------------------------- | --------- |
-| 任何指针类型                                  | `long`    |
+| Any Pointer Type                             | `long`    |
 | `LLVMBool`                                   | `boolean` |
 | `char`, `unsigned char`, `int8_t`, `uint8_t` | `byte`    |
 | `int16_t`, `uint16_t`                        | `short`   |
@@ -17,20 +17,20 @@
 | `long long`, `int64_t`, `uint64_t`, `size_t` | `long`    |
 | `double`                                     | `double`  |
 
-该模块提供了一系列易读的注解帮助用户理解 Java API 类型的含义，
-关于这些注解的详细信息，请参阅 [Annotations](#Annotations)。
+This module provides a series of easy-to-read annotations to help users understand the meaning of Java API types,
+For more information about these annotations, see [Annotations](#Annotations).
 
-### 简化的 API
+### Simplified API
 
-虽然易用和安全并非目标，但对于部分固定模式的 API，该模块提供了变形重载：
+Although ease of use and safety are not goals, for some fixed-mode APIs, this module provides variant overloads:
 
-1. 通过指针接受字符串长度的方法：
+1. The method of receiving the length of a string through a pointer:
 
     `@Pointer("const char *") long foo(..., @Pointer("size_t *") long Length, ...)`
     <=> 
     `ByteBuffer foo(...)`
 
-2. 通过指针返回数组的方法：
+2. The method of returning an array through a pointer:
 
     `@Unsigned int GetNumContainedXxx(...)`
     
@@ -42,27 +42,27 @@
     
     `@Xxx long[] GetXxx(...)`
     
-3. 通过传递指向首元素指针以及对应的数组长度来传递数组的方法：
+3. The method of passing the array by passing the pointer to the first element and the corresponding array length:
 
    `<some type> foo(..., @Pointer("Xxx *") long values, @Unsigned int count, ...)
    <=>`
    `<some type> foo(..., @Xxx long[] values, ...)`
 
-目前尚未给所有符合上述模式的方法声明了对应的重载方法，如果发现了遗漏的方法
-或者其他应该通过重载方法简化的模式，请及时提出 issue。
+At present, the corresponding overload method has not been declared for all methods that conform to the above pattern. If the missing method is found
+Or other modes that should be simplified by overloading methods, please raise an issue in time.
 
-### 头文件对应列表
+### Header file corresponding list
 
-该模块使用类一一对应 LLVM-C API 包含公共函数或类型的头文件，下面是 C 头文件与 Java 类的对应列表：
+The module uses a one-to-one correspondence with classes. The LLVM-C API contains header files of public functions or types. The following is the corresponding list of C header files and Java classes:
 
-| C 头文件                                  | Java 类                                                 |
+| C header Files                            | Java class                                              |
 | ----------------------------------------- | ------------------------------------------------------- |
 | llvm-c/Analysis.h                         | asia.kala.llvm.binding.Analysis                         |
 | llvm-c/BitReader.h                        | asia.kala.llvm.binding.BitReader                        |
 | llvm-c/BitWriter.h                        | asia.kala.llvm.binding.BitWriter                        |
 | llvm-c/Comdat.h                           | asia.kala.llvm.binding.Comdat                           |
 | llvm-c/Core.h                             | asia.kala.llvm.binding.Core                             |
-| llvm-c/DataTypes.h                        | *没有需要映射的对象*                                    |
+| llvm-c/DataTypes.h                        | *There is no object to be mapped*                       |
 | llvm-c/DebugInfo.h                        | asia.kala.llvm.binding.DebugInfo                        |
 | llvm-c/Disassembler.h                     | asia.kala.llvm.binding.Disassembler                     |
 | llvm-c/DisassemblerTypes.h                | asia.kala.llvm.binding.DisassemblerTypes                |
@@ -72,8 +72,8 @@
 | llvm-c/Initialization.h                   | asia.kala.llvm.binding.Initialization                   |
 | llvm-c/IRReader.h                         | asia.kala.llvm.binding.IRReader                         |
 | llvm-c/Linker.h                           | asia.kala.llvm.binding.Linker                           |
-| llvm-c/LinkTimeOptimizer.h                | 未实现                                                  |
-| llvm-c/lto.h                              | asia.kala.llvm.binding.lto (未完全实现)                 |
+| llvm-c/LinkTimeOptimizer.h                | 未实现                                                   |
+| llvm-c/lto.h                              | asia.kala.llvm.binding.lto (Not fully realized)         |
 | llvm-c/Object.h                           | asia.kala.llvm.binding.ObjectH                          |
 | llvm-c/OrcBindings.h                      | asia.kala.llvm.binding.OrcBindings                      |
 | llvm-c/Remarks.h                          | asia.kala.llvm.binding.Remarks                          |
@@ -92,47 +92,47 @@
 
 ### Annotations
 
-`llvm-binding` 模块在 `asia.kala.llvm.binding.annotations` 包中
-提供了一系列注解，通过这些注解帮助用户了解对应的 C API 参数以及返回值类型，
-并提供给 `native-generator` 足够的类型信息来生成 JNI 代码。
+The `llvm-binding` module is in the ʻasia.kala.llvm.binding.annotations` package
+A series of annotations are provided to help users understand the corresponding C API parameters and return value types through these annotations.
+And provide enough type information to `native-generator` to generate JNI code.
 
 #### `@CInfo`
 
-`@CInfo` 用于注解包含本机方法并需要使用 `native-generator` 生成 JNI 代码的类，
-提示 `native-generator` 为该类生成的文件名称，以及需要用 `#include` 宏导入的头文件。
+`@CInfo` is used to annotate classes that contain native methods and need to use `native-generator` to generate JNI code,
+Prompt `native-generator` for the file name generated by this class, and the header file that needs to be imported with the `#include` macro.
 
 #### `@Pointer`
 
-`@Pointer` 注解可以用于注解类型或其他注解。
+The `@Pointer` annotation can be used for annotation types or other annotations.
 
-用于注解类型时，`@Pointer` 注解只能注解 `long` 类型，表示它在 C 中对应一个指针类型。
-`@Pointer` 注解唯一的元素 `value` 表示对应的指针类型名称。
+When used to annotate types, the `@Pointer` annotation can only annotate the `long` type, which means that it corresponds to a pointer type in C.
+`@Pointer` The only element of the annotation `value` represents the name of the corresponding pointer type.
 
-用于注解其他注解时，被注解的注解类型会成为对应的 `@Pointer` 注解的别名。
+When used to annotate other annotations, the annotated annotation type will become the alias of the corresponding `@Pointer` annotation.
 
 #### `@CEnum`
 
-`@CEnum` 注解是用于注解其他注解的元注解。
+The `@CEnum` annotation is a meta-annotation used to annotate other annotations.
 
-被 `@CEnum` 注解的注解类型一个 C enum 类型，在其中应该声明一系列常量表示对应的 C enum 的值，
-`@CEnum` 注解唯一的元素 `value` 表示对应的 enum 类型名称。
+The annotation type annotated by `@CEnum` is a C enum type, in which a series of constants should be declared to represent the corresponding C enum value,
+`@CEnum` The only element of the annotation `value` represents the name of the corresponding enum type.
 
-被 `@CEnum` 注解的注解用于注解 `int` 类型，表示它在 C 中对应相应的枚举类型。
+The annotation annotated by `@CEnum` is used to annotate the ʻint` type, indicating that it corresponds to the corresponding enumeration type in C.
 
 #### `@Signed`
 
-`@Signed` 注解可以用于注解类型或其他注解。
+The `@Signed` annotation can be used for annotation types or other annotations.
 
-用于注解类型时，`@Signed` 注解可以用于注解任意整数类型，表示它在 C 中对应一个有符号整数类型。
-`@Signed` 注解唯一的元素 `value` 表示对应的整数类型名称。
+When used for annotation types, the `@Signed` annotation can be used to annotate any integer type, meaning that it corresponds to a signed integer type in C.
+`@Signed` The only element of the annotation `value` represents the name of the corresponding integer type.
 
-用于注解其他注解时，被注解的注解类型会成为对应的 `@Signed` 注解的别名。
+When used to annotate other annotations, the annotated annotation type will become the alias of the corresponding `@Signed` annotation.
 
 #### `@Unsigned`
 
-`@Unsigned` 注解可以用于注解类型或其他注解。
+The `@Unsigned` annotation can be used for annotation types or other annotations.
 
-用于注解类型时，`@Unsigned` 注解可以用于注解任意整数类型，表示它在 C 中对应一个无符号整数类型。
-`@Unsigned` 注解唯一的元素 `value` 表示对应的整数类型名称。
+When used for annotation types, the `@Unsigned` annotation can be used to annotate any integer type, meaning that it corresponds to an unsigned integer type in C.
+`@Unsigned` The only element of the annotation `value` represents the name of the corresponding integer type.
 
-用于注解其他注解时，被注解的注解类型会成为对应的 `@Unsigned` 注解的别名。
+When used to annotate other annotations, the annotated annotation type will become the alias of the corresponding `@Unsigned` annotation.
